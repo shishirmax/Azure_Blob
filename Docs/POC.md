@@ -48,3 +48,7 @@ The Blob service contains the following components:
 				(iii)	Append blobs:
 				Page blobs can be up to 1 TB in size, and are more efficient for frequent read/write operations. 
 				Azure Virtual Machines uses page blobs as OS and data disks.
+
+### Data Lake
+A data lake is a storage repository that holds a vast amount of raw data in its native format, including structured, 
+semi-structured, and unstructured data. The data structure and requirements are not defined until the data is needed				
