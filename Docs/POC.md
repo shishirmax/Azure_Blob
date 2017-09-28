@@ -51,4 +51,6 @@ The Blob service contains the following components:
 
 ### Data Lake
 A data lake is a storage repository that holds a vast amount of raw data in its native format, including structured, 
-semi-structured, and unstructured data. The data structure and requirements are not defined until the data is needed				
+semi-structured, and unstructured data. The data structure and requirements are not defined until the data is needed.
+A data lake is a hub or repository of all data that any organization has access to, 
+where the data is ingested and stored in as close to the raw form as possible without enforcing any restrictive schema. 
