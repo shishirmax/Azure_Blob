@@ -16,4 +16,23 @@
 3. **Geo Redundant (Standard - GRS)**: LRS + 3 data copies stored in secondary location.
 4. **Read - Access Geo Redundant (Standard - RAGRS)**: Same as GRS but at a failover state the data in secondary location is read only.
  
- 
+
+### XML XSD Validation
+
+### Azure Blob using SSIS
+
+### Azure Data Lake
+
+### Azure Data Factory
+
+
+
+
+
+---
+**Reference Links**:
+- https://docs.microsoft.com/en-us/azure/data-factory/connector-azure-blob-storage
+- https://docs.microsoft.com/en-us/azure/data-factory/copy-activity-overview
+- https://docs.microsoft.com/en-us/azure/data-factory/quickstart-create-data-factory-portal
+- https://docs.microsoft.com/en-us/azure/data-factory/tutorial-copy-data-dot-net
+- https://www.slideshare.net/ShawnIsmail/session-38-azure-storage-part-1-introduction
