@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="PackageToUploadTxtFiles"
   DTS:PackageType="5"
-  DTS:VersionBuild="1"
-  DTS:VersionGUID="{CB0D5602-718A-4263-8DC3-A1BF5237B218}">
+  DTS:VersionBuild="2"
+  DTS:VersionGUID="{127DCDDB-E4A9-4C6F-92C6-EA8814778CD6}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -26,7 +26,7 @@
           ConnectionString="DefaultEndpointsProtocol=https;AccountName=shishirmax;EndpointSuffix=core.windows.net">
           <AccountKey
             Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAASZ9oVoGp/0W42ZgwWblFmAAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAADCkeZ7nwYERKvr1ZSuAMX7AAAAAASAAACgAAAAEAAAAGE1EhrDHpCO/6qApuvlSkS4AAAAfCL9BUVVS3vg1KQzRfkve+SdFXZ42wdwow3A9igcmhheTsvbc2VjCQBQqeEcvvAII1o2cNGAunFcJ0OOAAHFRDF0ERru8H7AVullm8+F2mYPKysnMVTXVRB8xvtVSwyZRvZ3exGPMmojfJGCmfqgnjCdb6P9jNfZYDGxbTD9XHgtIyAnR7inKmDT5lxAfLplmDItFlNSMyjJpmNbG6xsYRsnpgPycgRgF32Wb0YT/O2OdCYRMeL3vRQAAADl9I6MG1enx3a5vB7lFv1glqMBng</AccountKey>
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAASZ9oVoGp/0W42ZgwWblFmAAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAABWz0x6MeIqW71mrI4QS+nZAAAAAASAAACgAAAAEAAAABWHsyOnVwCJtQ9rVilvOV64AAAAGBT8Yx52CTCEG5P/j88xHjj5XJxVJDviFb2Wb3xYdSvqUmYtoi5PBiL90BB++BUro5z3OQdeSVuxBrfmtAAjmOl0np2d00FbH35DIh8V0Z0a+aSyYOPmD3ZqqHzkQn6mGdmlkXqaAoVkdsRFxWyjSAgh2EtUKFe3s3hweFCAK0azbIwo+4JFs0ato6glEUeHajxwsIwjh9ALSzjbBC6DfhznEDWa2wOAQVHiNLKGwXbi+8zqq260NRQAAAAjYIkPZFQDg8AKX/XiL9OQjfDfMg</AccountKey>
         </AzureStorageConnectionManager>
       </DTS:ObjectData>
     </DTS:ConnectionManager>
