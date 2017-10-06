@@ -215,13 +215,12 @@ Click deploy.
 Under the ADF Action, we will click on Copy Data(PREVIEW). Opens a new window tab with URL as
 https://datafactory.azure.com
 
-1. Properties
-
+**1. Properties**
 Task Name : Any task name (WebsiteDataCopyPipeline)
 Task Description: description about the task.
 Task cadence or task schedule:
 	Two options:
-		i. Run once now
+	    i. Run once now
 		ii. Run regularly on schedule
 If we select the second option we need to give the start date time and end date time
 with the Recurring pattern.
@@ -232,7 +231,7 @@ Available recurring pattern are:
 	iv. Hourly
 	v. Minute
 
-2. Source
+**2. Source**
 	i. From Existing Connections
 	ii. Connect to a data store
 We will choose to second option tab, and from available options we will 
@@ -255,7 +254,8 @@ Here we need to specify File server share connection.
 	5. password: local computer password.
 and click next.
 Choose the file and Next, we will get the File Format setting window.
-3. Destination
+
+**3. Destination**
 	i. From Existing Connections
 	ii. Connect to a data store
 	We will choose to second option tab, and from available options we will choose Azure SQL Database.
@@ -271,15 +271,15 @@ Choose the file and Next, we will get the File Format setting window.
 	On next, Setting window is available for:
 		i. Fault tolerance settings (Error handling for incompatible rows between source and destination)
 		ii. perfomance setting
-4. Summary
-5. Deployment
+**4. Summary**
+**5. Deployment**
 
 All this process has created some Linked Services, Pipelines and Integration runtimes(Gateways)
 
-Linked Services:
-	1. WebsiteDataRedirectingStorage
-	
-	```JSON
+**Linked Services:**
+1. WebsiteDataRedirectingStorage
+
+```json
 	{
     "name": "WebsiteDataRedirectingStorage",
     "properties": {
@@ -290,11 +290,11 @@ Linked Services:
 				}
 			}
 	}
-	```
+```
+
+2. WebsiteDataSource-File
 	
-	2. WebsiteDataSource-File
-	
-	```JSON
+```JSON
 	{
     "name": "WebsiteDataSource-File",
     "properties": {
@@ -309,12 +309,12 @@ Linked Services:
 				}
 			}
 		}
-	```
+```
 	
-Dataset:
-	1. InputDataset-a73
+**Dataset:**
+1. InputDataset-a73
 	
-	```JSON
+```JSON
 	{
     "name": "InputDataset-a73",
     "properties": {
@@ -356,10 +356,10 @@ Dataset:
         "policy": {}
     }
 }
-	```
-	2. OutputDataset-a73
+```
+2. OutputDataset-a73
 	
-	```JSON
+```JSON
 	{
     "name": "OutputDataset-a73",
     "properties": {
@@ -395,12 +395,12 @@ Dataset:
         "policy": {}
     }
 }
-	```
+```
 
-Pipelines
-	1. WebsiteDataCopyPipeline
+**Pipelines**
+1. WebsiteDataCopyPipeline
 	
-	```JSON
+```JSON
 	{
     "name": "WebsiteDataCopyPipeline",
     "properties": {
@@ -459,12 +459,12 @@ Pipelines
         "pipelineMode": "Scheduled"
     }
 }
-	```
+```
 	
-Integration runtime(Gateway):
-	1. WebsiteDataIntegrationRuntime
+**Integration runtime(Gateway):**
+1. WebsiteDataIntegrationRuntime
 	
-	```JSON
+```JSON
 	{
     "name": "WebsiteDataIntegrationRuntime",
     "properties": {
