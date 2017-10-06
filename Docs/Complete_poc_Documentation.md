@@ -45,7 +45,7 @@
         "hubName": "adftutorialpocv1_hub",
         "type": "AzureStorage",
         "typeProperties": {
-            "connectionString": "DefaultEndpointsProtocol=https;AccountName=shishirmax;AccountKey=**********"
+            "connectionString": "DefaultEndpointsProtocol=https;AccountName=<accountname>;AccountKey=<accountkey>"
         }
     }
 }
@@ -62,7 +62,7 @@
         "hubName": "adftutorialpocv1_hub",
         "type": "AzureSqlDatabase",
         "typeProperties": {
-            "connectionString": "Data Source=tcp:shishirazurepoc.database.windows.net,1433;Initial Catalog=azurepocdb;Integrated Security=False;User ID=shishiradmin;Password=**********;Connect Timeout=30;Encrypt=True"
+            "connectionString": "Data Source=tcp:<servername>.database.windows.net,1433;Initial Catalog=<dbname>;Integrated Security=False;User ID=<userid>;Password=<password>;Connect Timeout=30;Encrypt=True"
         }
     }
 }
@@ -286,7 +286,7 @@ All this process has created some Linked Services, Pipelines and Integration run
         "hubName": "adftutorialpocv1_hub",
         "type": "AzureStorage",
         "typeProperties": {
-            "connectionString": "DefaultEndpointsProtocol=https;AccountName=shishirmax;AccountKey=**********"
+            "connectionString": "DefaultEndpointsProtocol=https;AccountName=<accountname>;AccountKey=<accountkey>"
 				}
 			}
 	}
@@ -469,7 +469,7 @@ All this process has created some Linked Services, Pipelines and Integration run
     "name": "WebsiteDataIntegrationRuntime",
     "properties": {
         "description": "",
-        "hostServiceUri": "https://shishirs.contatan.local:8050/HostServiceRemote.svc/",
+        "hostServiceUri": "https://<full_computer_name>:8050/HostServiceRemote.svc/",
         "dataFactoryName": "adftutorialpocv1",
         "status": "Online",
         "capabilities": {
@@ -490,7 +490,7 @@ All this process has created some Linked Services, Pipelines and Integration run
                 "nodeName": "SHISHIRS",
                 "machineName": "SHISHIRS",
                 "isActiveDispatcher": true,
-                "hostServiceUri": "https://shishirs.contatan.local:8050/HostServiceRemote.svc/",
+                "hostServiceUri": "https://<full_computer_name>:8050/HostServiceRemote.svc/",
                 "status": "Online",
                 "capabilities": {
                     "serviceBusConnected": "True",
