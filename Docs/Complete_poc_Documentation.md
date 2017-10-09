@@ -45,7 +45,7 @@
         "hubName": "adftutorialpocv1_hub",
         "type": "AzureStorage",
         "typeProperties": {
-            "connectionString": "DefaultEndpointsProtocol=https;AccountName=shishirmax;AccountKey=**********"
+            "connectionString": "DefaultEndpointsProtocol=https;AccountName=<accountname>;AccountKey=<accountkey>"
         }
     }
 }
@@ -62,7 +62,7 @@
         "hubName": "adftutorialpocv1_hub",
         "type": "AzureSqlDatabase",
         "typeProperties": {
-            "connectionString": "Data Source=tcp:shishirazurepoc.database.windows.net,1433;Initial Catalog=azurepocdb;Integrated Security=False;User ID=shishiradmin;Password=**********;Connect Timeout=30;Encrypt=True"
+            "connectionString": "Data Source=tcp:<servername>.database.windows.net,1433;Initial Catalog=<dbname>;Integrated Security=False;User ID=<userid>;Password=<password>;Connect Timeout=30;Encrypt=True"
         }
     }
 }
@@ -210,6 +210,335 @@ Click deploy.
 
 **Complete Reference:** https://docs.microsoft.com/en-us/azure/data-factory/v1/data-factory-introduction
 
+### Copy Data from on premise to Azure SQL DB using Azure Data Factory
+
+Under the ADF Action, we will click on Copy Data(PREVIEW). Opens a new window tab with URL as
+https://datafactory.azure.com
+
+**1. Properties**
+Task Name : Any task name (WebsiteDataCopyPipeline)
+Task Description: description about the task.
+Task cadence or task schedule:
+	Two options:
+	    i. Run once now
+		ii. Run regularly on schedule
+If we select the second option we need to give the start date time and end date time
+with the Recurring pattern.
+Available recurring pattern are:
+	i. Monthly
+	ii. Weekly
+	iii. Daily
+	iv. Hourly
+	v. Minute
+
+**2. Source**
+	i. From Existing Connections
+	ii. Connect to a data store
+We will choose to second option tab, and from available options we will 
+choose File System
+
+Here we need to specify File server share connection.
+	1. Connection name: (WebsiteDataSource-File)
+	2. Integration Runtime/Gateway(if not available we need to create Integration Runtime/Gateway
+		a. Create Integration Runtime
+			name: WebsiteDataIntegrationRuntime
+			description: optional
+		This will setup a gateway to the local computer system.
+		There will be two option awailable to setup.
+		i. Express Setup: Launch the express setup and installs the required.
+		ii. Manual Setup:
+			Step 1. Download and install integration runtime(self hosted)
+			Step 2. USe authentication key to register
+	3. Path: local path of the file location
+	4. Username: username of  the computer
+	5. password: local computer password.
+and click next.
+Choose the file and Next, we will get the File Format setting window.
+
+**3. Destination**
+	i. From Existing Connections
+	ii. Connect to a data store
+	We will choose to second option tab, and from available options we will choose Azure SQL Database.
+	Specify the Azure SQL Database
+		i. Connection name: WebsiteDataDestination-SQLAzure
+		ii. Server/database selection method
+		iii. Azure Subscription
+		iv. Server name: shishirazurepoc
+		v. Database name: azurepocdb
+		vi. username: username for the azure sql db
+		vii. password: password for the azure sql db
+	Table mapping and schema mapping.
+	On next, Setting window is available for:
+		i. Fault tolerance settings (Error handling for incompatible rows between source and destination)
+		ii. perfomance setting
+**4. Summary**
+**5. Deployment**
+
+All this process has created some Linked Services, Pipelines and Integration runtimes(Gateways)
+
+**Linked Services:**
+1. WebsiteDataRedirectingStorage
+
+```json
+	{
+    "name": "WebsiteDataRedirectingStorage",
+    "properties": {
+        "hubName": "adftutorialpocv1_hub",
+        "type": "AzureStorage",
+        "typeProperties": {
+            "connectionString": "DefaultEndpointsProtocol=https;AccountName=<accountname>;AccountKey=<accountkey>"
+				}
+			}
+	}
+```
+
+2. WebsiteDataSource-File
+	
+```JSON
+	{
+    "name": "WebsiteDataSource-File",
+    "properties": {
+        "hubName": "adftutorialpocv1_hub",
+        "type": "OnPremisesFileServer",
+        "typeProperties": {
+            "host": "D:\\GIT\\Azure_Blob\\File_To_Upload\\txtFiles\\",
+            "gatewayName": "WebsiteDataIntegrationRuntime",
+            "userId": "",
+            "password": "**********",
+            "encryptedCredential": "eyJDbGFzc1R5cGUiOiJNaWNyb3NvZnQuRGF0YVByb3h5LkNvcmUuSW50ZXJTZXJ2aWNlRGF0YUNvbnRyYWN0LkNyZWRlbnRpYWxTVTA2Q1kxNCIsIkNyZWRlbnRpYWxJZCI6ImViMTY0YzExLWNlNGYtNGQzNC1iZDExLWJhYjc2NWYzZjQ3YiIsIkRhdGFTb3VyY2VSZWZlcmVuY2VBbmRTaWduYXR1cmUiOm51bGwsIkRhdGFTb3VyY2VTZXR0aW5ncyI6bnVsbCwiRW5jcnlwdGVkQmxvYiI6bnVsbCwiVmVyc2lvbiI6IjEuMCJ9"
+				}
+			}
+		}
+```
+	
+**Dataset:**
+1. InputDataset-a73
+	
+```JSON
+	{
+    "name": "InputDataset-a73",
+    "properties": {
+        "structure": [
+            {
+                "name": "book_name",
+                "type": "String"
+            },
+            {
+                "name": "book_author",
+                "type": "String"
+            },
+            {
+                "name": "book_isbn",
+                "type": "String"
+            },
+            {
+                "name": "book_publisher",
+                "type": "String"
+            }
+        ],
+        "published": false,
+        "type": "FileShare",
+        "linkedServiceName": "WebsiteDataSource-File",
+        "typeProperties": {
+            "fileName": "bookdata.txt",
+            "folderPath": "./",
+            "format": {
+                "type": "TextFormat",
+                "columnDelimiter": "|",
+                "firstRowAsHeader": true
+            }
+        },
+        "availability": {
+            "frequency": "Day",
+            "interval": 1
+        },
+        "external": true,
+        "policy": {}
+    }
+}
+```
+2. OutputDataset-a73
+	
+```JSON
+	{
+    "name": "OutputDataset-a73",
+    "properties": {
+        "structure": [
+            {
+                "name": "book_name",
+                "type": "String"
+            },
+            {
+                "name": "book_author",
+                "type": "String"
+            },
+            {
+                "name": "book_isbn",
+                "type": "String"
+            },
+            {
+                "name": "book_publisher",
+                "type": "String"
+            }
+        ],
+        "published": false,
+        "type": "AzureSqlTable",
+        "linkedServiceName": "WebsiteDataDestination-SQLAzure",
+        "typeProperties": {
+            "tableName": "[dbo].[books]"
+        },
+        "availability": {
+            "frequency": "Day",
+            "interval": 1
+        },
+        "external": false,
+        "policy": {}
+    }
+}
+```
+
+**Pipelines**
+1. WebsiteDataCopyPipeline
+	
+```JSON
+	{
+    "name": "WebsiteDataCopyPipeline",
+    "properties": {
+        "activities": [
+            {
+                "type": "Copy",
+                "typeProperties": {
+                    "source": {
+                        "type": "FileSystemSource",
+                        "recursive": false
+                    },
+                    "sink": {
+                        "type": "SqlSink",
+                        "writeBatchSize": 0,
+                        "writeBatchTimeout": "00:00:00"
+                    },
+                    "translator": {
+                        "type": "TabularTranslator",
+                        "columnMappings": "book_name:book_name,book_author:book_author,book_isbn:book_isbn,book_publisher:book_publisher"
+                    },
+                    "enableSkipIncompatibleRow": true,
+                    "redirectIncompatibleRowSettings": {
+                        "linkedServiceName": "WebsiteDataRedirectingStorage"
+                    }
+                },
+                "inputs": [
+                    {
+                        "name": "InputDataset-a73"
+                    }
+                ],
+                "outputs": [
+                    {
+                        "name": "OutputDataset-a73"
+                    }
+                ],
+                "policy": {
+                    "timeout": "1.00:00:00",
+                    "concurrency": 1,
+                    "executionPriorityOrder": "NewestFirst",
+                    "style": "StartOfInterval",
+                    "retry": 3,
+                    "longRetry": 0,
+                    "longRetryInterval": "00:00:00"
+                },
+                "scheduler": {
+                    "frequency": "Day",
+                    "interval": 1
+                },
+                "name": "Activity-0-bookdata_txt->[dbo]_[books]"
+            }
+        ],
+        "start": "2017-10-05T09:36:49.872Z",
+        "end": "2099-12-30T18:30:00Z",
+        "isPaused": false,
+        "hubName": "adftutorialpocv1_hub",
+        "pipelineMode": "Scheduled"
+    }
+}
+```
+	
+**Integration runtime(Gateway):**
+1. WebsiteDataIntegrationRuntime
+	
+```JSON
+	{
+    "name": "WebsiteDataIntegrationRuntime",
+    "properties": {
+        "description": "",
+        "hostServiceUri": "https://<full_computer_name>:8050/HostServiceRemote.svc/",
+        "dataFactoryName": "adftutorialpocv1",
+        "status": "Online",
+        "capabilities": {
+            "serviceBusConnected": "True",
+            "httpsPortEnabled": "True",
+            "credentialInSync": "True",
+            "connectedToResourceManager": "True",
+            "nodeEnabled": "True"
+        },
+        "versionStatus": "UpToDate",
+        "version": "3.0.6464.2",
+        "registerTime": "2017-10-06T11:28:37.9461864Z",
+        "lastConnectTime": "2017-10-06T12:17:43.8311366Z",
+        "lastUpgradeResult": "",
+        "multiNodeSupportEnabled": false,
+        "nodes": [
+            {
+                "nodeName": "SHISHIRS",
+                "machineName": "SHISHIRS",
+                "isActiveDispatcher": true,
+                "hostServiceUri": "https://<full_computer_name>:8050/HostServiceRemote.svc/",
+                "status": "Online",
+                "capabilities": {
+                    "serviceBusConnected": "True",
+                    "httpsPortEnabled": "True",
+                    "credentialInSync": "True",
+                    "connectedToResourceManager": "True",
+                    "nodeEnabled": "True"
+                },
+                "versionStatus": "UpToDate",
+                "version": "3.0.6464.2",
+                "createTime": "2017-10-06T11:28:37.9461864Z",
+                "registerTime": "2017-10-06T11:28:37.9461864Z",
+                "lastConnectTime": "2017-10-06T12:17:43.8311366Z",
+                "lastUpgradeResult": "None",
+                "maxConcurrentJobs": "16",
+                "availableMemory": "408MB",
+                "cpuUtilization": "42%",
+                "network": "0KBps/1KBps",
+                "limitConcurrentJobs": "8",
+                "runningConcurrentJobs": "0"
+            }
+        ],
+        "isCredentialSyncFailed": false,
+        "nodeCommunicationChannelEncryptionMode": "None",
+        "isOnPremCredentialEnabled": true,
+        "serviceUrls": [
+            "eu.frontend.clouddatahub.net",
+            "*.servicebus.windows.net"
+        ],
+        "scheduledUpgradeTime": "21:30:00"
+    }
+}
+```
+
+
+
+### SSIS to Azure:
+Introduced as part of Azure Data Factory version 2.
+#### Benifits
+Moving your on-premises SSIS workloads to Azure has the following potential benefits:
+- Reduce operational costs by reducing on-premises infrastructure.
+- Increase high availability with multiple nodes per cluster, as well as the high availability features of Azure and of Azure SQL Database.
+- Increase scalability with the ability to specify multiple cores per node (scale up) and multiple nodes per cluster (scale out).
+- Avoid the limitations of running SSIS on Azure virtual machines.
+
+**References:**
+- https://docs.microsoft.com/en-us/sql/integration-services/lift-shift/ssis-azure-lift-shift-ssis-packages-overview
+- https://docs.microsoft.com/en-us/azure/data-factory/tutorial-deploy-ssis-packages-azure
 
 
 
