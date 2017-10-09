@@ -32,6 +32,10 @@ GO
 drop table [pocTblWebsiteData]
 select * from [pocTblWebsiteData]
 
+truncate table [pocTblWebsiteData]
+
+sp_help pocTblWebsiteData
+
 
 
 CREATE TABLE dbo.emp
@@ -68,3 +72,6 @@ PRIMARY KEY CLUSTERED
 
 
 select * from books
+
+select count(*),book_entry_date from books
+group by book_entry_date
