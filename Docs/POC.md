@@ -33,21 +33,23 @@ The Blob service contains the following components:
 				All blobs must be in a container. An account can contain an unlimited number of containers. 
 				A container can store an unlimited number of blobs. Note that the container name must be lowercase.
 3. Blob: 		A file of any type and size. 
-				Azure Storage offers three types of blobs: 
-				(i)		Block blobs:
-				Block blobs are ideal for storing text or binary files, such as documents and media files.
+
+Azure Storage offers three types of blobs: 
+
+(i)	Block blobs:
+Block blobs are ideal for storing text or binary files, such as documents and media files.
 				
-				(ii)	Page blobs:
-				Append blobs are similar to block blobs in that they are made up of blocks, 
-				but they are optimized for append operations, so they are useful for logging scenarios. 
-				A single block blob can contain up to 50,000 blocks of up to 100 MB each, 
-				for a total size of slightly more than 4.75 TB (100 MB X 50,000). 
-				A single append blob can contain up to 50,000 blocks of up to 4 MB each, 
-				for a total size of slightly more than 195 GB (4 MB X 50,000).
+(ii)	Page blobs:
+Append blobs are similar to block blobs in that they are made up of blocks, 
+but they are optimized for append operations, so they are useful for logging scenarios. 
+A single block blob can contain up to 50,000 blocks of up to 100 MB each, 
+for a total size of slightly more than 4.75 TB (100 MB X 50,000). 
+A single append blob can contain up to 50,000 blocks of up to 4 MB each, 
+for a total size of slightly more than 195 GB (4 MB X 50,000).
 				
-				(iii)	Append blobs:
-				Page blobs can be up to 1 TB in size, and are more efficient for frequent read/write operations. 
-				Azure Virtual Machines uses page blobs as OS and data disks.
+(iii)	Append blobs:
+Page blobs can be up to 1 TB in size, and are more efficient for frequent read/write operations. 
+Azure Virtual Machines uses page blobs as OS and data disks.
 
 ### Data Lake
 A data lake is a storage repository that holds a vast amount of raw data in its native format, including structured, 
